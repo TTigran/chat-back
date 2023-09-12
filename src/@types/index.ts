@@ -6,3 +6,9 @@ export type MessageData = {
     date: string,
     message: string,
 }
+
+export type JsonForJoining ={
+    username: string,
+    joinedRoomId: string,
+    imageURL: string
+}
