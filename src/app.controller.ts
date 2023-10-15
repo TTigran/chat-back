@@ -11,4 +11,9 @@ export class AppController {
   async getHello(): Promise<string[]> {
     return await this.appService.getStoredData();
   }
+
+  @Get()
+   getHello(): string {
+    return "hello world";
+  }
 }
