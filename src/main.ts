@@ -1,9 +1,22 @@
+import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
+import {getEnvPath} from "./api/common/helper/env.helper";
+
+
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.enableCors();
-  await app.listen(4000);
+  const app: NestExpressApplication = await NestFactory.create(AppModule);
+  const config: ConfigService = app.get(ConfigService);
+  const port: number = config.get<number>('PORT');
+
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+
+  await app.listen(port, () => {
+    console.log('[WEB]',port, config.get<number>('BASE_URL'));
+  });
 }
+
 bootstrap();

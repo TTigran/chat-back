@@ -12,8 +12,5 @@ export class AppController {
     return await this.appService.getStoredData();
   }
 
-  @Get()
-   getHello(): string {
-    return "hello world";
-  }
+
 }
